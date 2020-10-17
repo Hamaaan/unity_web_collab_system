@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/Scenes/web_collab_PM.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
