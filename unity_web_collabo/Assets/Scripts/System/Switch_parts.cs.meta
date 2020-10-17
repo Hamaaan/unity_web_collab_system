@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: b0df4b43877e9ed4d81505d36ab14291
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Door_base: {fileID: 8435336607133247060, guid: c4af7c4c7f0458d479f6606cdb5108fb,
+      type: 3}
+  - Door_nob: {fileID: 3842521992134234944, guid: 8e9471cb7c2c1994ea346cf85c085e9b,
+      type: 3}
+  - Door_window1: {fileID: 6044442006119009933, guid: 6ef8a3c0beb2c3e4ca36997f584af16a,
+      type: 3}
+  - Door_window2: {fileID: 6154724604009646594, guid: e01cd51b37521864590a2f13e82e5562,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
