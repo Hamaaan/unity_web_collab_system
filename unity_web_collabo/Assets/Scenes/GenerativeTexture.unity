@@ -237,13 +237,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8da09836aae60649affe8c694f03805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseColor: {r: 0.24313726, g: 0.49019608, b: 0.27368268, a: 1}
-  TextureColor: {r: 0.9607843, g: 0.7019608, b: 0.88358694, a: 1}
   Texture_ID: 2
   Textures:
   - {fileID: 2800000, guid: 20701b2cfa43a3a40b6150de5813ecb3, type: 3}
   - {fileID: 2800000, guid: 73a78ac8eddfbaf4f8560ce2c9362228, type: 3}
   - {fileID: 2800000, guid: c37b8d080f068864c9300c9de7324f41, type: 3}
+  BaseColor_ID: 0
+  TextureColor_ID: 0
+  Colors: []
 --- !u!1 &393989939
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +408,7 @@ PrefabInstance:
     - target: {fileID: -1504981713932161579, guid: c49180d61a49a0b458e59b6c054c7490,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: c49180d61a49a0b458e59b6c054c7490,
         type: 3}
@@ -419,6 +420,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: b90244697ff3657479dff15e82f98a08, type: 2}
+    - target: {fileID: -1504981713932161579, guid: c49180d61a49a0b458e59b6c054c7490,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: dee41cc8ac0f542a8b5026897e169572, type: 2}
     - target: {fileID: -927199367670048503, guid: c49180d61a49a0b458e59b6c054c7490,
         type: 3}
       propertyPath: m_Name
@@ -444,13 +450,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8da09836aae60649affe8c694f03805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseColor: {r: 1, g: 0.8145589, b: 0.654902, a: 1}
-  TextureColor: {r: 0.30196083, g: 0.58032316, b: 0.7921569, a: 1}
   Texture_ID: 1
   Textures:
   - {fileID: 2800000, guid: 20701b2cfa43a3a40b6150de5813ecb3, type: 3}
   - {fileID: 2800000, guid: 73a78ac8eddfbaf4f8560ce2c9362228, type: 3}
   - {fileID: 2800000, guid: c37b8d080f068864c9300c9de7324f41, type: 3}
+  BaseColor_ID: 0
+  TextureColor_ID: 0
+  Colors:
+  - {r: 0.5882353, g: 0.6431373, b: 0, a: 1}
+  - {r: 0.6611947, g: 0.764151, b: 0.23429158, a: 0}
 --- !u!1 &856685028
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +726,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8435336607133247060, guid: 710160350fb426946b4faf55320fa79f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8435336607133247062, guid: 710160350fb426946b4faf55320fa79f,
         type: 3}

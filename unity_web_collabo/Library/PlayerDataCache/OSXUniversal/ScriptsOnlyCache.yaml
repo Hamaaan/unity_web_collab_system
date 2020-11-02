@@ -12,10 +12,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -62,31 +60,31 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9680}
+      Script: {instanceID: 9684}
     - Class: 114
-      Script: {instanceID: 9762}
+      Script: {instanceID: 9766}
     - Class: 114
-      Script: {instanceID: 9800}
+      Script: {instanceID: 9804}
     - Class: 114
-      Script: {instanceID: 9832}
+      Script: {instanceID: 9836}
     - Class: 114
-      Script: {instanceID: 9872}
+      Script: {instanceID: 9876}
     - Class: 114
-      Script: {instanceID: 10088}
+      Script: {instanceID: 10094}
     - Class: 114
-      Script: {instanceID: 10258}
+      Script: {instanceID: 10264}
     - Class: 114
-      Script: {instanceID: 10600}
+      Script: {instanceID: 10398}
     - Class: 114
-      Script: {instanceID: 10780}
+      Script: {instanceID: 10608}
     - Class: 114
-      Script: {instanceID: 11040}
+      Script: {instanceID: 10788}
     - Class: 114
-      Script: {instanceID: 11384}
+      Script: {instanceID: 10984}
     - Class: 114
-      Script: {instanceID: 31710}
+      Script: {instanceID: 11050}
     - Class: 114
-      Script: {instanceID: 51576}
+      Script: {instanceID: 11396}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -123,31 +121,31 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9680}
+      Script: {instanceID: 9684}
     - Class: 114
-      Script: {instanceID: 9800}
+      Script: {instanceID: 9804}
     - Class: 114
-      Script: {instanceID: 9832}
+      Script: {instanceID: 9836}
     - Class: 114
-      Script: {instanceID: 9872}
+      Script: {instanceID: 9876}
     - Class: 114
-      Script: {instanceID: 10258}
+      Script: {instanceID: 9928}
     - Class: 114
-      Script: {instanceID: 10306}
+      Script: {instanceID: 10264}
     - Class: 114
-      Script: {instanceID: 10600}
+      Script: {instanceID: 10312}
     - Class: 114
-      Script: {instanceID: 10780}
+      Script: {instanceID: 10608}
     - Class: 114
-      Script: {instanceID: 11040}
+      Script: {instanceID: 10788}
     - Class: 114
-      Script: {instanceID: 11384}
+      Script: {instanceID: 10984}
     - Class: 114
-      Script: {instanceID: 31710}
+      Script: {instanceID: 11050}
     - Class: 114
-      Script: {instanceID: 43078}
+      Script: {instanceID: 11188}
     - Class: 114
-      Script: {instanceID: 52782}
+      Script: {instanceID: 11396}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -265,6 +263,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_InputField
+  - hash:
+      serializedVersion: 2
+      Hash: 97ace8fc63949474398b3cb684a2f355
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ObjectActivator
   - hash:
       serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
@@ -399,6 +403,12 @@ ScriptsOnlyBuild:
     className: Switch_parts_fromNetworking
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SystemQuit
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -507,6 +517,12 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: d8b442640787867ba0a2a6d7d5633bf8
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SceneChanger
+  - hash:
+      serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -541,6 +557,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: MarkerTrack
+  - hash:
+      serializedVersion: 2
+      Hash: a2d4f8a2ac979089923687e6f4ed4b7c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BackGroundChanger
   - hash:
       serializedVersion: 2
       Hash: d791aa6007fa3640be1164ea75bb087d
@@ -643,32 +665,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: d8b442640787867ba0a2a6d7d5633bf8
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SceneChanger
-  - hash:
-      serializedVersion: 2
-      Hash: 97ace8fc63949474398b3cb684a2f355
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ObjectActivator
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SystemQuit
-  - hash:
-      serializedVersion: 2
-      Hash: a2d4f8a2ac979089923687e6f4ed4b7c
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: BackGroundChanger
   platform: 2
   scenePathNames:
   - Assets/Scenes/MenuScene.unity
   - Assets/Scenes/web_collab_PM.unity
-  playerPath: D:/work/unity_web_collab/buildData/pmsystem1017.app
+  playerPath: /Users/obamayukihide/Documents/BuildData/pmsystem1007.app

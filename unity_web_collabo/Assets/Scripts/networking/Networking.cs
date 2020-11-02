@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Networking : MonoBehaviour
 {
-    static public string URL = "https://gesk=door_nums_debug";
+    public string URL = "https://gesk=door_nums_debug";
 
     //https://geikosai2020-staging.herokuapp.com/staffonly?task=door_nums_debug
     //https://geikosai2020-staging.herokuapp.com/staffonly?task=door_nums&last_door=
@@ -18,6 +18,12 @@ public class Networking : MonoBehaviour
     [SerializeField] InputField field;
 
     [SerializeField] Text LogText;
+
+	[SerializeField] bool Debugmode;
+
+	[SerializeField]int currentID = 0;
+
+	[SerializeField] int thisMashine;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +40,7 @@ public class Networking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        URL = field.text;
+        //URL = field.text;
     }
 
     public void ConnectionStart()
@@ -46,10 +52,14 @@ public class Networking : MonoBehaviour
     {
         while (true)
         {
-            UnityWebRequest request = UnityWebRequest.Get(URL);
+			string currentURL = URL + currentID;
+
+			UnityWebRequest request = UnityWebRequest.Get(currentURL);
 
             // リクエスト送信
-            yield return request.SendWebRequest();
+			request.SendWebRequest();
+
+			yield return new WaitForSeconds(2);
 
             if (request.isNetworkError)
             {
@@ -65,8 +75,52 @@ public class Networking : MonoBehaviour
 
                     responce = request.downloadHandler.text;
 
-                    LogText.text += "\n"+network_status;
+
+
+                    //デバッグモード
+					if(Debugmode)
+					{
+						string receiveData = "";
+
+                        int length = Random.Range(0, 8);
+
+                            for (int i = 0; i < length; i++)
+                            {
+                                string tex_ID = Random.Range(0, 5).ToString();
+
+                                string BaseColor_ID = Random.Range(0, 5).ToString();
+
+                                string TexColor_ID = Random.Range(0, 5).ToString();
+
+
+                                string randomData = "0.0." +
+                                                        tex_ID + "." +
+                                                            BaseColor_ID + "." +
+                                                                TexColor_ID + "/";
+
+                                receiveData += randomData;
+                            }
+
+						if(Probability(50))
+						{
+							receiveData = "";
+						}
+
+						responce = receiveData;
+                    }
+
+					LogText.text += "\n" + network_status + "current ID : " + currentID;
+
+                    Debug.Log(currentID);
+
+					if(responce != "")
+					{
+						currentID++;
+					}
+
+
                 }
+
                 else
                 {
 
@@ -80,6 +134,25 @@ public class Networking : MonoBehaviour
         }
 
         
+    }
+
+
+	public static bool Probability(float fPercent)
+    {
+        float fProbabilityRate = UnityEngine.Random.value * 100.0f;
+
+        if (fPercent == 100.0f && fProbabilityRate == fPercent)
+        {
+            return true;
+        }
+        else if (fProbabilityRate < fPercent)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 
