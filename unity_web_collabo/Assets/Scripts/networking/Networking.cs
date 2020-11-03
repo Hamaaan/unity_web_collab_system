@@ -21,9 +21,9 @@ public class Networking : MonoBehaviour
 
 	[SerializeField] bool Debugmode;
 
-	[SerializeField]int currentID = 0;
+	public int currentID = 0;
 
-	[SerializeField] int thisMashine;
+	[SerializeField] int requestInterval = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +59,7 @@ public class Networking : MonoBehaviour
             // リクエスト送信
 			request.SendWebRequest();
 
-			yield return new WaitForSeconds(2);
+			yield return new WaitForSeconds(requestInterval);
 
             if (request.isNetworkError)
             {
@@ -73,14 +73,15 @@ public class Networking : MonoBehaviour
 
                     Debug.Log(request.downloadHandler.text);
 
-                    responce = request.downloadHandler.text;
 
 
+					responce = request.downloadHandler.text;
+                    
 
                     //デバッグモード
 					if(Debugmode)
 					{
-						string receiveData = "";
+						string Data = "";
 
                         int length = Random.Range(0, 8);
 
@@ -98,27 +99,23 @@ public class Networking : MonoBehaviour
                                                             BaseColor_ID + "." +
                                                                 TexColor_ID + "/";
 
-                                receiveData += randomData;
+                                Data += randomData;
                             }
 
 						if(Probability(50))
 						{
-							receiveData = "";
+							Data = "";
 						}
 
-						responce = receiveData;
-                    }
-
+						responce = Data;
+                    }               
+                    
 					LogText.text += "\n" + network_status + "current ID : " + currentID;
 
+
                     Debug.Log(currentID);
-
-					if(responce != "")
-					{
-						currentID++;
-					}
-
-
+         
+                    
                 }
 
                 else
@@ -137,6 +134,15 @@ public class Networking : MonoBehaviour
     }
 
 
+	public void ID_updater(int DataBlocksCount)
+	{
+		currentID += DataBlocksCount;
+	}
+
+
+
+
+       
 	public static bool Probability(float fPercent)
     {
         float fProbabilityRate = UnityEngine.Random.value * 100.0f;

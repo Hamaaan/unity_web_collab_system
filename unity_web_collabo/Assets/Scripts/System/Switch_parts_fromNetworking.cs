@@ -25,8 +25,10 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     float Interval = 0;
 
-
+    
     List<string> DataBlocks = new List<string>();
+
+	public int receivedDataBlocksCount = 0;
     
     //アニメーションを生成
 
@@ -46,7 +48,6 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     [SerializeField] float default_y = 2f;
 
-
     [SerializeField] float x_offset = 2f;
 
     [SerializeField] float y_offset = -2f;
@@ -55,8 +56,16 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     bool toggle_initialize = false;
 
+	private int pre_currentID = 0;
+
+	[SerializeField] int AllMachines_amount;
+
+    [Range(0, 7)] [SerializeField] int thisMachine_number;
     
-    
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +78,8 @@ public class Switch_parts_fromNetworking : MonoBehaviour
         networking = networking.GetComponent<Networking>();
 
         Log = Log.GetComponent<Text>();
+        
+        
     }
     
     // Update is called once per frame
@@ -91,7 +102,7 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
             time += Time.deltaTime;
 
-            if (time > offsetTime)
+			if (time > offsetTime)
             {
 
                 StockCounter();
@@ -137,10 +148,11 @@ public class Switch_parts_fromNetworking : MonoBehaviour
                 }
                 Log.text = LogText;
                 
-                DataBlocks.RemoveAt(0);
+                DataBlocks.RemoveAt(0);            
 
                 time = 0;
 
+				Debug.Log("DataBlocks : " + DataBlocks.Count);
             }
             
             
@@ -152,15 +164,18 @@ public class Switch_parts_fromNetworking : MonoBehaviour
         }
 
         //ReceiveIntervalごとに繰り返し
+        //DataBlocksが0の時に以下の処理が行われる
 
         Interval += Time.deltaTime;
 
-        if (Interval > ReceiveInterval)
+		if (Interval > ReceiveInterval 
+		    &&
+		    flag_nothing)
         {
-            if (flag_nothing)
-            {
-                GetNetworkingData();
-            }
+            
+            GetNetworkingData();
+			Debug.Log("GetNetwork");
+            
 
             Interval = 0;
         }
@@ -171,65 +186,82 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     void GetNetworkingData()
     {
-        //DataBlocks.Clear();
+		//DataBlocks.Clear();
+			
+			receiveData = networking.responce;
 
-        receiveData = networking.responce;
-
-
-        //デバッグモード
-        if(DebugByInputField)
-        {
-            receiveData = Fields[0].text;
-
-            int length = Random.Range(0, 8);
-
-            for (int i = 0; i < length; i++)
+            //デバッグモード
+            if (DebugByInputField)
             {
-                string tex_ID = Random.Range(0, 5).ToString();
+                int length = Random.Range(0, 8);
 
-                string BaseColor_ID = Random.Range(0, 5).ToString();
+                for (int i = 0; i < length; i++)
+                {
+                    string tex_ID = Random.Range(0, 5).ToString();
 
-                string TexColor_ID = Random.Range(0, 5).ToString();
+                    string BaseColor_ID = Random.Range(0, 5).ToString();
+
+                    string TexColor_ID = Random.Range(0, 5).ToString();
 
 
-                string randomData = "0.0." +
-                                        tex_ID + "." +
-                                            BaseColor_ID + "." +
-                                                TexColor_ID + "/";
+                    string randomData = "0.0." +
+                                            tex_ID + "." +
+                                                BaseColor_ID + "." +
+                                                    TexColor_ID + "/";
 
-                receiveData += randomData;
-            }
-
-        }
-        //デバッグモードここまで
-
-        //InputField分を追加
-
-        for (int i = 0; i < Fields.Length; i++)
-        {
-            receiveData += Fields[i].text;
-        }
-        
-        //DataBlocksにreceiveDataを変換入力
-
-        int Block_size = SplitData(receiveData, '/').Length;
-
-        if (Block_size > 0)
-        {
-            string[] BlockData = new string[Block_size];
-
-            for (int i = 0; i < Block_size; i++)
-            {
-                BlockData[i] = SplitData(receiveData, '/')[i];
-                
-                DataBlocks.Add(BlockData[i]);
+                    receiveData += randomData;
+                }
 
             }
+            //デバッグモードここまで
 
-            DataBlocks.RemoveAt(DataBlocks.Count-1);
+            //InputField分を追加
 
+            for (int i = 0; i < Fields.Length; i++)
+            {
+                receiveData += Fields[i].text;
+            }
+
+            //DataBlocksにreceiveDataを変換入力
+
+            int Block_size = SplitData(receiveData, '/').Length;
+
+		    receivedDataBlocksCount = Block_size;
+            
+            if (Block_size > 0)
+            {
+                string[] BlockData = new string[Block_size];
+
+                for (int i = 0; i < Block_size; i++)
+                {
+                    BlockData[i] = SplitData(receiveData, '/')[i];
+
+                    DataBlocks.Add(BlockData[i]);
+                    
+                    
+                }
+
+			DataBlocks.RemoveAt(DataBlocks.Count - 1);//ここの記述は、データをもらった際にかならず末尾に余計な/が入り、DataBlocksの数が実際のデータブロック数に対して狂うため、余りを予め削除する。
+
+			networking.ID_updater(DataBlocks.Count);
+            
+
+            }
+
+    }
+
+	string[] SplitData(string input, char sep)
+    {
+        string[] arr = input.Split(sep);
+
+        string[] output = new string[arr.Length];
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            output[i] = arr[i];
         }
 
+        return output;
 
     }
 
@@ -296,20 +328,7 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     
 
-    string[] SplitData(string input, char sep)
-    {
-        string[] arr = input.Split(sep);
-
-        string[] output = new string[arr.Length];
-
-        for (int i = 0; i < arr.Length; i++)
-        {
-            output[i] = arr[i];
-        }
-
-        return output;
-
-    }
+    
 
     public void OnClick_Initialize()
     {

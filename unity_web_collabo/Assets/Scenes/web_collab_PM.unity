@@ -1606,6 +1606,7 @@ MonoBehaviour:
   LogText: {fileID: 1132266226}
   Debugmode: 0
   currentID: 3
+  requestInterval: 2
 --- !u!1 &1132266224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,6 +1925,7 @@ MonoBehaviour:
   Log: {fileID: 1132266226}
   networking: {fileID: 1087479741}
   ReceiveInterval: 3
+  receivedDataBlocksCount: 0
   Stock_max: 40
   Column_max: 8
   default_x: -2.5
@@ -1931,6 +1933,8 @@ MonoBehaviour:
   x_offset: 1.8
   y_offset: -3
   offsetTime: 0.3
+  AllMachines_amount: 1
+  thisMachine_number: 0
 --- !u!4 &1308252641
 Transform:
   m_ObjectHideFlags: 0
