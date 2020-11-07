@@ -6,8 +6,7 @@ TagManager:
   tags:
   - DoorBase
   - DoorNob
-  - DoorWindow1
-  - DoorWindow2
+  - window
   layers:
   - Default
   - TransparentFX

@@ -773,10 +773,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7257ee51f48a0f341854c2ca42af49f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  URL: https://gesk=door_nums_debug
   responce: NaN
   network_status: NaN
   field: {fileID: 1508697611}
   LogText: {fileID: 1588980830}
+  Debugmode: 0
+  currentID: 0
+  requestInterval: 2
 --- !u!4 &624228150
 Transform:
   m_ObjectHideFlags: 0

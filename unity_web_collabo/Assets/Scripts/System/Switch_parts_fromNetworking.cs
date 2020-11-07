@@ -44,6 +44,9 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     float time = 0;
 
+    [SerializeField, Range(0f, 3f)] float default_size = 1f;
+
+
     [SerializeField] float default_x = -2f;
 
     [SerializeField] float default_y = 2f;
@@ -107,11 +110,18 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
                 StockCounter();
 
+                //DataBlocks[0]を呼び出して、後にRemoveAt[0]
                 string[] data_id = SplitData(DataBlocks[0], '.');
 
-                SwitchParts("DoorBase", "1", data_id[2], data_id[3], data_id[4]);
+                //DoorBaseの呼び出し
+                SwitchParts("DoorBase", data_id[1], data_id[4], data_id[5], data_id[6]);
 
-                SwitchParts("DoorNob", "1", "0", "0", "0");
+                //DoorHandleの呼び出し
+                SwitchParts("DoorNob", data_id[2], "0", "0", "0");
+
+                //windowの呼び出し
+                SwitchParts("window", data_id[3], "0", "0", "0");
+
 
                 LogLine.Add(DataBlocks[0]);
 
@@ -197,17 +207,26 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
                 for (int i = 0; i < length; i++)
                 {
-                    string tex_ID = Random.Range(0, 5).ToString();
+                    string Door_ID = Random.Range(0, 5).ToString();
+                    
+                    string Handle_ID = Random.Range(0, 4).ToString();
 
-                    string BaseColor_ID = Random.Range(0, 5).ToString();
+                    string Window_ID = Random.Range(0, 3).ToString();
 
-                    string TexColor_ID = Random.Range(0, 5).ToString();
+                    string tex_ID = Random.Range(0, 9).ToString();
+
+                    string BaseColor_ID = Random.Range(0, 10).ToString();
+
+                    string TexColor_ID = Random.Range(0, 10).ToString();
 
 
-                    string randomData = "0.0." +
-                                            tex_ID + "." +
-                                                BaseColor_ID + "." +
-                                                    TexColor_ID + "/";
+                    string randomData = "0." +
+                                         Door_ID + "." +
+                                           Handle_ID + "." +
+                                             Window_ID + "." +
+                                                tex_ID + "." +
+                                                    BaseColor_ID + "." +
+                                                        TexColor_ID + "/";
 
                     receiveData += randomData;
                 }
@@ -285,7 +304,7 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
         obj.name = obj.name + Stock.ToString();
 
-        obj.transform.localScale = obj.transform.localScale* 0.25f;
+        obj.transform.localScale = obj.transform.localScale* 0.25f * default_size;
 
         obj.transform.position = new Vector3(default_x + column * x_offset, 
                                                 default_y + line * y_offset, 0);
@@ -349,6 +368,8 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
         GameObject[] Targets1 = GameObject.FindGameObjectsWithTag("DoorBase");
         GameObject[] Targets2 = GameObject.FindGameObjectsWithTag("DoorNob");
+        GameObject[] Targets3 = GameObject.FindGameObjectsWithTag("window");
+
 
         for (int i = 0; i < Targets1.Length; i++)
         {
@@ -357,6 +378,10 @@ public class Switch_parts_fromNetworking : MonoBehaviour
         for (int i = 0; i < Targets2.Length; i++)
         {
             Destroy(Targets2[i]);
+        }
+        for (int i = 0; i < Targets3.Length; i++)
+        {
+            Destroy(Targets3[i]);
         }
 
 
