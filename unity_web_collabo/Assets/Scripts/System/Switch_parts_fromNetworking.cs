@@ -64,11 +64,6 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 	[SerializeField] int AllMachines_amount;
 
     [Range(0, 7)] [SerializeField] int thisMachine_number;
-    
-
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -145,10 +140,11 @@ public class Switch_parts_fromNetworking : MonoBehaviour
                     LogText += "OFF\n";
                 }
 
-                LogText += "IDs : 形.取っ手.模様.ベース色.模様色";
+                LogText += "IDs : id.形.取っ手.窓.模様.ベース色.模様色";
 
                 for (int i = 0; i < LogLine.Count; i++)
                 {
+
                     LogText += "/\n" + LogLine[i];
 
                     if(i == (LogLine.Count - 1))
@@ -244,7 +240,7 @@ public class Switch_parts_fromNetworking : MonoBehaviour
             //DataBlocksにreceiveDataを変換入力
 
             int Block_size = SplitData(receiveData, '/').Length;
-
+            
 		    receivedDataBlocksCount = Block_size;
             
             if (Block_size > 0)
@@ -256,7 +252,6 @@ public class Switch_parts_fromNetworking : MonoBehaviour
                     BlockData[i] = SplitData(receiveData, '/')[i];
 
                     DataBlocks.Add(BlockData[i]);
-                    
                     
                 }
 
@@ -316,7 +311,6 @@ public class Switch_parts_fromNetworking : MonoBehaviour
         stc.BaseColor_ID = int.Parse(color1_ID);
 
         stc.TextureColor_ID = int.Parse(color2_ID);
-
 
         if (objects.Length >= Stock_max)
         {
