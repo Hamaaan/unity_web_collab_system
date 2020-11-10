@@ -59,11 +59,9 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     bool toggle_initialize = false;
 
-	private int pre_currentID = 0;
+	public static int pre_currentID = 0;
 
-	[SerializeField] int AllMachines_amount;
-
-    [Range(0, 7)] [SerializeField] int thisMachine_number;
+	
 
     // Start is called before the first frame update
     void Start()
@@ -107,6 +105,10 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
                 //DataBlocks[0]を呼び出して、後にRemoveAt[0]
                 string[] data_id = SplitData(DataBlocks[0], '.');
+
+                //idを取得
+                pre_currentID = int.Parse(data_id[0]);
+                Debug.Log("data_id :" + data_id[0]);
 
                 //DoorBaseの呼び出し
                 SwitchParts("DoorBase", data_id[1], data_id[4], data_id[5], data_id[6]);
@@ -154,7 +156,10 @@ public class Switch_parts_fromNetworking : MonoBehaviour
                 }
                 Log.text = LogText;
                 
-                DataBlocks.RemoveAt(0);            
+                
+                DataBlocks.RemoveAt(0);     
+                
+
 
                 time = 0;
 
@@ -179,6 +184,7 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 		    flag_nothing)
         {
             
+
             GetNetworkingData();
 			Debug.Log("GetNetwork");
             
@@ -203,17 +209,19 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
                 for (int i = 0; i < length; i++)
                 {
-                    string Door_ID = Random.Range(0, 5).ToString();
                     
-                    string Handle_ID = Random.Range(0, 4).ToString();
 
-                    string Window_ID = Random.Range(0, 3).ToString();
+                    string Door_ID = Random.Range(1, 5).ToString();
+                    
+                    string Handle_ID = Random.Range(1, 4).ToString();
 
-                    string tex_ID = Random.Range(0, 9).ToString();
+                    string Window_ID = Random.Range(1, 3).ToString();
 
-                    string BaseColor_ID = Random.Range(0, 10).ToString();
+                    string tex_ID = Random.Range(1, 9).ToString();
 
-                    string TexColor_ID = Random.Range(0, 10).ToString();
+                    string BaseColor_ID = Random.Range(1, 10).ToString();
+
+                    string TexColor_ID = Random.Range(1, 10).ToString();
 
 
                     string randomData = "0." +
@@ -255,11 +263,20 @@ public class Switch_parts_fromNetworking : MonoBehaviour
                     
                 }
 
-			DataBlocks.RemoveAt(DataBlocks.Count - 1);//ここの記述は、データをもらった際にかならず末尾に余計な/が入り、DataBlocksの数が実際のデータブロック数に対して狂うため、余りを予め削除する。
+			    DataBlocks.RemoveAt(DataBlocks.Count - 1);//ここの記述は、データをもらった際にかならず末尾に余計な/が入り、DataBlocksの数が実際のデータブロック数に対して狂うため、余りを予め削除する。
 
-			networking.ID_updater(DataBlocks.Count);
-            
+			    //networking.ID_updater(DataBlocks.Count);
 
+               
+            }
+        Debug.Log("pre_currentID :" + pre_currentID);
+
+        Debug.Log("DataBlocks[DataBlocks.Count - 1][0] :" + DataBlocks[DataBlocks.Count - 1][0]);
+
+
+        if (pre_currentID == DataBlocks[DataBlocks.Count - 1][0])
+            {
+                //DataBlocks.Clear();
             }
 
     }
@@ -291,6 +308,15 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 
     void SwitchParts(string parts, string ID, string Tex_ID, string color1_ID, string color2_ID)
     {
+
+        ID = idCorrecter(ID);
+
+        Tex_ID = idCorrecter(Tex_ID);
+
+        color1_ID = idCorrecter(color1_ID);
+
+        color2_ID = idCorrecter(color2_ID);
+
         GameObject[] objects = GameObject.FindGameObjectsWithTag(parts);
 
         string path = parts + "s/" + ID;
@@ -317,6 +343,12 @@ public class Switch_parts_fromNetworking : MonoBehaviour
             Destroy(GameObject.FindGameObjectWithTag(parts));
         }
 
+    }
+
+    string idCorrecter(string id)
+    {
+        int int_id = int.Parse(id) -1;
+        return int_id.ToString();
     }
 
     void StockCounter() 

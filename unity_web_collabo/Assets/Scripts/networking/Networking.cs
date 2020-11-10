@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Networking : MonoBehaviour
 {
-    public string URL = "https://gesk=door_nums_debug";
+    string URL;
 
     //https://geikosai2020-staging.herokuapp.com/staffonly?task=door_nums_debug
     //https://geikosai2020-staging.herokuapp.com/staffonly?task=door_nums&last_door=
@@ -25,9 +25,19 @@ public class Networking : MonoBehaviour
 
 	[SerializeField] int requestInterval = 2;
 
+    [SerializeField] int AllMachines_amount;
+
+    [Range(0, 7)] [SerializeField] int thisMachine_number;
+
+    List<string> DataBlocks = new List<string>();
+
+
     // Start is called before the first frame update
     void Start()
     {
+        URL = "https://geikosai2020-staging.herokuapp.com/staffonly?task=door_nums&pc_id=";
+
+
 
         StartCoroutine(Connection());
 
@@ -35,12 +45,12 @@ public class Networking : MonoBehaviour
 
         field = field.GetComponent<InputField>();
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //URL = field.text;
     }
 
     public void ConnectionStart()
@@ -52,7 +62,9 @@ public class Networking : MonoBehaviour
     {
         while (true)
         {
-			string currentURL = URL + currentID;
+            string currentURL = URL + thisMachine_number + "&last_door=" + currentID;
+
+            Debug.Log(currentURL);
 
 			UnityWebRequest request = UnityWebRequest.Get(currentURL);
 
@@ -72,8 +84,6 @@ public class Networking : MonoBehaviour
                     network_status = "Success.";
 
                     Debug.Log(request.downloadHandler.text);
-
-
 
 					responce = request.downloadHandler.text;
                     
@@ -108,14 +118,23 @@ public class Networking : MonoBehaviour
 						}
 
 						responce = Data;
-                    }               
-                    
-					LogText.text += "\n" + network_status + "current ID : " + currentID;
+                    }
+
+                    DataBlocks.Clear();
+                    processData();
+
+                    if(DataBlocks.Count > 0)
+                    {
+                        //DataBlockの末尾のidを代入
+                        string[] lastData = SplitData(DataBlocks[DataBlocks.Count - 1], '.');
+                        currentID = int.Parse(lastData[0]);
+                        currentID++;
+                        Debug.Log(currentID);
+                    }
 
 
-                    Debug.Log(currentID);
-         
-                    
+                    LogText.text += "\n" + network_status + "current ID : " + currentID;
+
                 }
 
                 else
@@ -139,11 +158,44 @@ public class Networking : MonoBehaviour
 		currentID += DataBlocksCount;
 	}
 
+    void processData()
+    {
+        int Block_size = SplitData(responce, '/').Length;
+
+        if (Block_size > 0)
+        {
+            string[] BlockData = new string[Block_size];
+
+            for (int i = 0; i < Block_size; i++)
+            {
+                BlockData[i] = SplitData(responce, '/')[i];
+
+                DataBlocks.Add(BlockData[i]);
+
+            }
+
+            DataBlocks.RemoveAt(DataBlocks.Count - 1);//ここの記述は、データをもらった際にかならず末尾に余計な/が入り、DataBlocksの数が実際のデータブロック数に対して狂うため、余りを予め削除する。
+
+        }
+    }
+
+    string[] SplitData(string input, char sep)
+    {
+        string[] arr = input.Split(sep);
+
+        string[] output = new string[arr.Length];
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            output[i] = arr[i];
+        }
+
+        return output;
+
+    }
 
 
-
-       
-	public static bool Probability(float fPercent)
+    public static bool Probability(float fPercent)
     {
         float fProbabilityRate = UnityEngine.Random.value * 100.0f;
 
