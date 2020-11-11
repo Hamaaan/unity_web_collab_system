@@ -183,9 +183,12 @@ public class Switch_parts_fromNetworking : MonoBehaviour
 		    &&
 		    flag_nothing)
         {
-            
+			if(pre_currentID != networking.currentID - 1)
+			{
+				GetNetworkingData();
 
-            GetNetworkingData();
+			}
+
 			Debug.Log("GetNetwork");
             
 

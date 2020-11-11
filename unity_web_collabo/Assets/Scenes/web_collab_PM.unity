@@ -2014,8 +2014,8 @@ MonoBehaviour:
   field: {fileID: 1369584511}
   LogText: {fileID: 1132266226}
   Debugmode: 0
-  currentID: 3
-  requestInterval: 10
+  currentID: 0
+  requestInterval: 15
   AllMachines_amount: 0
   thisMachine_number: 0
 --- !u!1 &1132266224

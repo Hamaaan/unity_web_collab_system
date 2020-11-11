@@ -35,7 +35,7 @@ public class Networking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        URL = "https://geikosai2020-staging.herokuapp.com/staffonly?task=door_nums&pc_id=";
+		URL = "https://www.geikosai2020.jp/staffonly?task=door_nums&pc_id=";
 
 
 
